@@ -11,7 +11,7 @@ import android.view.SurfaceHolder;
  * Created by zoup on 2018/10/28
  * E-Mail：2479008771@qq.com
  */
-public class GameMap {
+public class Map {
     public static int[][] floor1;
     public static int[][] floor2;
     public static int[][] floor3;
@@ -211,35 +211,36 @@ public class GameMap {
     }
 
     public void draw(Context context, SurfaceHolder surfaceHolder, int floor) {
+        Canvas canvas = surfaceHolder.lockCanvas();
         Paint paint = new Paint();
         paint.setAlpha(90);
         paint.setAntiAlias(true);
-        Canvas canvas = surfaceHolder.lockCanvas();
 
         Bitmap[][] mapBitmaps = ImageFactory.getMapBitmaps(context.getResources());
         int[][] floorMap = getMap(floor);
-        float itemWidth = Const.MAP_ITEM_WIDTH;
+        float itemWidth = GameSurfaceView.MAP_ITEM_WIDTH;
         for (int i = floorMap.length - 1; i >= 0; --i) {
             for (int j = floorMap[i].length - 1; j >= 0; --j) {
-                RectF rectF = new RectF(j * itemWidth, i * itemWidth, (j + 1) * itemWidth, (i + 1) * itemWidth);
-                canvas.drawBitmap(mapBitmaps[0][0], null, rectF, paint);
+                Bitmap target;
                 if (floorMap[i][j] == 1) {
-                    canvas.drawBitmap(mapBitmaps[0][1], null, rectF, paint);
+                    target = mapBitmaps[0][1];
                 } else if (floorMap[i][j] == 2) {
-                    canvas.drawBitmap(mapBitmaps[0][0], null, rectF, paint);
+                    target = mapBitmaps[0][0];
                 } else if (floorMap[i][j] == 3) {
-                    canvas.drawBitmap(mapBitmaps[1][0], null, rectF, paint);
+                    target = mapBitmaps[1][0];
                 } else if (floorMap[i][j] == 4) {
-                    canvas.drawBitmap(mapBitmaps[1][0], null, rectF, paint);
+                    target = mapBitmaps[1][1];
                 } else {
-                    canvas.drawBitmap(mapBitmaps[1][2], null, rectF, paint);
+                    target = mapBitmaps[1][2];
                 }
+                RectF rectF = new RectF(j * itemWidth, i * itemWidth, (j + 1) * itemWidth, (i + 1) * itemWidth);
+                canvas.drawBitmap(target, null, rectF, paint);
             }
         }
         surfaceHolder.unlockCanvasAndPost(canvas);
     }
 
-    public static int[][] getMap(int floor) {
+    private static int[][] getMap(int floor) {
         int[][] floorMap;
         switch (floor) {
             case 1: {

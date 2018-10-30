@@ -13,9 +13,12 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
     private Context context;
     private SurfaceHolder surfaceHolder;
     private volatile boolean flag;
-    private GameMap gameMap;
     private int screenWidth;
     private int screenHeight;
+    private int floor = 1;
+    public static float MAP_ITEM_WIDTH=0.0f;
+    private Map map;
+    private Hero hero;
 
     public GameSurfaceView(Context context) {
         super(context);
@@ -32,9 +35,9 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
         init(context);
     }
 
-    public GameSurfaceView(Context context,int width,int height) {
+    public GameSurfaceView(Context context, int width, int height) {
         super(context);
-        Const.MAP_ITEM_WIDTH=height/10;
+        MAP_ITEM_WIDTH = height / 10;
         init(context);
     }
 
@@ -45,6 +48,8 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        screenWidth = getWidth();
+        screenHeight = getHeight();
         Thread thread = new Thread(this);
         flag = true;
         thread.start();
@@ -64,27 +69,23 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
     @Override
     public void run() {
         while (flag) {
+            map.draw(context, surfaceHolder, floor);
+            hero.draw(context, surfaceHolder, floor);
             try {
-                synchronized (surfaceHolder) {
-                    Thread.sleep(100);
-                    gameMap.draw(context,surfaceHolder,2);
-                }
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            } finally {
-
             }
         }
 
     }
 
     private void init(Context context) {
-        this.context=context;
+        this.context = context;
         surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
         setFocusable(true);
-        gameMap = new GameMap();
-        screenWidth=getWidth();
-        screenHeight=getHeight();
+        map = new Map();
+        hero=new Hero();
     }
 }

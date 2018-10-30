@@ -1,6 +1,5 @@
 package com.zoup.android.magictower;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,17 +11,25 @@ import java.io.IOException;
  * E-Mail：2479008771@qq.com
  */
 public class ImageFactory {
-    public static Bitmap[][] getMapBitmaps(Resources resources) {
-        int x = 2, y = 3;
-        Bitmap[][] bitmaps = new Bitmap[x][y];
+
+    /**
+     *
+     * @param resources
+     * @param fileName 文件名
+     * @param rows 原始图片的行数
+     * @param columns 原始图片的列数
+     * @return
+     */
+    public static Bitmap[][] getBitmaps(Resources resources, String fileName, int rows, int columns) {
+        Bitmap[][] bitmaps = new Bitmap[rows][columns];
         try {
-            Bitmap origin = BitmapFactory.decodeStream(resources.getAssets().open("map.png"));
+            Bitmap origin = BitmapFactory.decodeStream(resources.getAssets().open(fileName));
             int width = origin.getWidth();
             int height = origin.getHeight();
-            int itemWidth = width / y;
-            int itemHeight = height / x;
-            for (int i = 0; i < x; i++) {
-                for (int j = 0; j < y; j++) {
+            int itemWidth = width / columns;
+            int itemHeight = height / rows;
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
                     bitmaps[i][j] = Bitmap.createBitmap(origin, itemWidth * j, itemHeight * i, itemWidth, itemHeight);
                 }
             }
@@ -30,5 +37,13 @@ public class ImageFactory {
             e.printStackTrace();
         }
         return bitmaps;
+    }
+
+    public static Bitmap[][] getMapBitmaps(Resources resources) {
+        return getBitmaps(resources, "map.png", 2, 3);
+    }
+
+    public static Bitmap[][] getHeroBitmaps(Resources resources) {
+        return getBitmaps(resources, "hero.png", 4, 4);
     }
 }
