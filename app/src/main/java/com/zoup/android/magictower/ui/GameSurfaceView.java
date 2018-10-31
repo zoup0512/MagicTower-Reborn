@@ -1,4 +1,4 @@
-package com.zoup.android.magictower;
+package com.zoup.android.magictower.ui;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,6 +7,10 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import com.zoup.android.magictower.element.Control;
+import com.zoup.android.magictower.element.Hero;
+import com.zoup.android.magictower.element.Map;
 
 /**
  * Created by zoup on 2018/10/27
@@ -51,7 +55,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
         screenHeight = getHeight();
         MAP_ITEM_WIDTH = screenHeight / 10;
         map = new Map();
-        hero = new Hero();
+        hero = new Hero(floor);
         control = new Control(context.getResources());
         Thread thread = new Thread(this);
         flag = true;
@@ -74,7 +78,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
         while (flag) {
             try {
                 draw();
-                Thread.sleep(500);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

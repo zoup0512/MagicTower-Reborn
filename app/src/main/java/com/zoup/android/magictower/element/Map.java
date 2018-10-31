@@ -1,11 +1,13 @@
-package com.zoup.android.magictower;
+package com.zoup.android.magictower.element;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.view.SurfaceHolder;
+
+import com.zoup.android.magictower.ui.GameSurfaceView;
+import com.zoup.android.magictower.common.ImageFactory;
 
 /**
  * Created by zoup on 2018/10/28

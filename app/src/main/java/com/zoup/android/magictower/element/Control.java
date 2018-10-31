@@ -1,4 +1,4 @@
-package com.zoup.android.magictower;
+package com.zoup.android.magictower.element;
 
 
 import android.content.res.Resources;
@@ -8,6 +8,11 @@ import android.graphics.Paint;
 
 import android.graphics.RectF;
 import android.view.MotionEvent;
+
+import com.zoup.android.magictower.ui.GameSurfaceView;
+import com.zoup.android.magictower.common.ImageFactory;
+import com.zoup.android.magictower.bean.MoveEvent;
+import com.zoup.android.magictower.common.rx.RxBus;
 
 public class Control {
     private float x;
@@ -21,7 +26,7 @@ public class Control {
     public Control(Resources res) {
         itemWidth = GameSurfaceView.MAP_ITEM_WIDTH;
         x = itemWidth * 14.0f;
-        y = itemWidth * 9.0f;
+        y = itemWidth * 6.0f;
         paint = new Paint();
         paint.setAntiAlias(true);
         bitmaps = ImageFactory.getCtrlBitmap(res);
@@ -35,25 +40,34 @@ public class Control {
     public boolean onTouchEvent(MotionEvent event) {
         float eventX = event.getX();
         float eventY = event.getY();
-        if (Math.abs(eventX - x) <= 2 * itemWidth && Math.abs(eventY - y) <= 2 * itemWidth) {
+        float absX = Math.abs(eventX - x);
+        float absY = Math.abs(eventY - y);
+        if (absX <= 2 * itemWidth && absY <= 2 * itemWidth) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     break;
                 case MotionEvent.ACTION_MOVE:
                     break;
                 case MotionEvent.ACTION_UP:
-                    MoveEvent moveEvent=new MoveEvent();
-                    if(eventX>=x){
-                        moveEvent.setAddX(1);
-                    }else {
-                        moveEvent.setAddX(-1);
+                    MoveEvent moveEvent = new MoveEvent();
+                    if (absX >= absY) {
+                        if (eventX > x) {
+                            moveEvent.setAddX(1);
+                            moveEvent.setAddY(0);
+                        } else {
+                            moveEvent.setAddX(-1);
+                            moveEvent.setAddY(0);
+                        }
+                    } else {
+                        if (eventY > y) {
+                            moveEvent.setAddX(0);
+                            moveEvent.setAddY(1);
+                        } else {
+                            moveEvent.setAddX(0);
+                            moveEvent.setAddY(-1);
+                        }
                     }
-                    if(eventY>=y){
-                        moveEvent.setAddY(1);
-                    }else {
-                        moveEvent.setAddY(-1);
-                    }
-                    RxBus.getIntanceBus().post(moveEvent);
+                    RxBus.getInstance().postSticky(moveEvent);
                     break;
             }
             return true;

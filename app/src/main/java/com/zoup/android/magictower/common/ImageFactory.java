@@ -1,4 +1,4 @@
-package com.zoup.android.magictower;
+package com.zoup.android.magictower.common;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -45,6 +45,10 @@ public class ImageFactory {
 
     public static Bitmap[][] getHeroBitmaps(Resources resources) {
         return getBitmaps(resources, "hero.png", 4, 4);
+    }
+
+    public static Bitmap[][] getDoorBitmaps(Resources resources) {
+        return getBitmaps(resources, "door.png", 4, 4);
     }
 
     public static Bitmap[] getCtrlBitmap(Resources resources) {

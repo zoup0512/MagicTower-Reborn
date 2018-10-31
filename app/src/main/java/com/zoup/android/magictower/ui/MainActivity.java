@@ -1,8 +1,10 @@
-package com.zoup.android.magictower;
+package com.zoup.android.magictower.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
+
+import com.zoup.android.magictower.ui.GameSurfaceView;
 
 public class MainActivity extends AppCompatActivity {
 

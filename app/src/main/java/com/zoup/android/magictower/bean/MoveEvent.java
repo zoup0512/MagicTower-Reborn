@@ -1,4 +1,4 @@
-package com.zoup.android.magictower;
+package com.zoup.android.magictower.bean;
 
 public class MoveEvent {
     private int addX;
