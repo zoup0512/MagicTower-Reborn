@@ -210,8 +210,7 @@ public class Map {
         floor15[9] = new int[]{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
     }
 
-    public void draw(Context context, SurfaceHolder surfaceHolder, int floor) {
-        Canvas canvas = surfaceHolder.lockCanvas();
+    public void draw(Context context, Canvas canvas, int floor) {
         Paint paint = new Paint();
         paint.setAlpha(90);
         paint.setAntiAlias(true);
@@ -237,7 +236,6 @@ public class Map {
                 canvas.drawBitmap(target, null, rectF, paint);
             }
         }
-        surfaceHolder.unlockCanvasAndPost(canvas);
     }
 
     private static int[][] getMap(int floor) {

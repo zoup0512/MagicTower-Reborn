@@ -1,7 +1,10 @@
 package com.zoup.android.magictower;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -12,13 +15,15 @@ import android.view.SurfaceView;
 public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHolder.Callback2 {
     private Context context;
     private SurfaceHolder surfaceHolder;
+    private Canvas canvas;
     private volatile boolean flag;
     private int screenWidth;
     private int screenHeight;
     private int floor = 1;
-    public static float MAP_ITEM_WIDTH=0.0f;
+    public static float MAP_ITEM_WIDTH = 0.0f;
     private Map map;
     private Hero hero;
+    private Control control;
 
     public GameSurfaceView(Context context) {
         super(context);
@@ -35,12 +40,6 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
         init(context);
     }
 
-    public GameSurfaceView(Context context, int width, int height) {
-        super(context);
-        MAP_ITEM_WIDTH = height / 10;
-        init(context);
-    }
-
     @Override
     public void surfaceRedrawNeeded(SurfaceHolder holder) {
 
@@ -50,6 +49,10 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
     public void surfaceCreated(SurfaceHolder holder) {
         screenWidth = getWidth();
         screenHeight = getHeight();
+        MAP_ITEM_WIDTH = screenHeight / 10;
+        map = new Map();
+        hero = new Hero();
+        control = new Control(context.getResources());
         Thread thread = new Thread(this);
         flag = true;
         thread.start();
@@ -69,10 +72,9 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
     @Override
     public void run() {
         while (flag) {
-            map.draw(context, surfaceHolder, floor);
-            hero.draw(context, surfaceHolder, floor);
             try {
-                Thread.sleep(100);
+                draw();
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -80,12 +82,33 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
 
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return control.onTouchEvent(event);
+    }
+
     private void init(Context context) {
         this.context = context;
         surfaceHolder = getHolder();
+        surfaceHolder.setFormat(PixelFormat.TRANSLUCENT);
         surfaceHolder.addCallback(this);
         setFocusable(true);
-        map = new Map();
-        hero=new Hero();
+
+    }
+
+    private void draw() {
+        try {
+            canvas = surfaceHolder.lockCanvas();
+            map.draw(context, canvas, floor);
+            hero.draw(context, canvas, floor);
+            control.draw(canvas);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (canvas != null) {
+                surfaceHolder.unlockCanvasAndPost(canvas);
+            }
+        }
+
     }
 }

@@ -46,4 +46,17 @@ public class ImageFactory {
     public static Bitmap[][] getHeroBitmaps(Resources resources) {
         return getBitmaps(resources, "hero.png", 4, 4);
     }
+
+    public static Bitmap[] getCtrlBitmap(Resources resources) {
+        Bitmap[] bitmaps = new Bitmap[5];
+        String[] strings = new String[]{"default.png", "default_up.png", "default_down.png", "default_left.png", "default_right.png"};
+        try {
+            for (int i = 0; i < bitmaps.length; i++) {
+                bitmaps[i] = BitmapFactory.decodeStream(resources.getAssets().open(strings[i]));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmaps;
+    }
 }
