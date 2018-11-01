@@ -9,8 +9,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.zoup.android.magictower.element.Control;
+import com.zoup.android.magictower.element.Element;
 import com.zoup.android.magictower.element.Hero;
 import com.zoup.android.magictower.element.Map;
+
+import java.util.Iterator;
 
 /**
  * Created by zoup on 2018/10/27
@@ -106,6 +109,12 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
             map.draw(context, canvas, floor);
             hero.draw(context, canvas, floor);
             control.draw(canvas);
+            Iterator elementIterator = Element.npcs.iterator();
+            while (elementIterator.hasNext()) {
+                ((Element) elementIterator.next()).draw(this.canvas, this.screenWidth);
+            }
+            Element.npcs.removeAll(Element.tempNpcs);
+            Element.tempNpcs.clear();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
