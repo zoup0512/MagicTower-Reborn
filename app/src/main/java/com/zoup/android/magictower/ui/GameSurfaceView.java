@@ -109,12 +109,6 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
             map.draw(context, canvas, floor);
             hero.draw(context, canvas, floor);
             control.draw(canvas);
-            Iterator elementIterator = Element.npcs.iterator();
-            while (elementIterator.hasNext()) {
-                ((Element) elementIterator.next()).draw(this.canvas, this.screenWidth);
-            }
-            Element.npcs.removeAll(Element.tempNpcs);
-            Element.tempNpcs.clear();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
