@@ -10,25 +10,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Element {
-    protected float itemWidth=GameSurfaceView.MAP_ITEM_WIDTH;
+    protected float itemWidth = GameSurfaceView.MAP_ITEM_WIDTH;
     public int floor = 0;
     public int i;
     public int j;
-    public int index = 0;
     public int type;
-    public Paint paint=new Paint();
-    public Bitmap[] npcBitmaps=new Bitmap[4];
-    public static List<Element> npcs=new ArrayList<>();
+    public int index = 0;
+    public int times=0;
+    public Paint paint = new Paint();
+    public Bitmap[] frameBitmaps = new Bitmap[4];
+    public static List<Element> npcs = new ArrayList<>();
+
     public Element() {
+        paint.setAntiAlias(true);
         npcs.add(this);
     }
+
     public abstract void draw(Canvas canvas);
-    public static Element getElementByType(int type){
-        for(Element npc:npcs){
-            if(npc.type==type){
+
+    public static Element getElementByType(int type) {
+        for (Element npc : npcs) {
+            if (npc.type == type) {
                 return npc;
             }
         }
         return null;
     }
+
 }

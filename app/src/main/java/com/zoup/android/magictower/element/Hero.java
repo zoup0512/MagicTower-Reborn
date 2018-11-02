@@ -21,8 +21,8 @@ import io.reactivex.functions.Consumer;
  * E-Mail：2479008771@qq.com
  */
 public class Hero {
-    private volatile float xPosition = 0.0f;
-    private volatile float yPosition = 0.0f;
+    private volatile int xPosition = 0;
+    private volatile int yPosition = 0;
     private float itemWidth;
 
     public Hero(int floor) {
@@ -32,7 +32,6 @@ public class Hero {
 
     public void draw(Context context, Canvas canvas, int floor) {
         Paint paint = new Paint();
-        paint.setAlpha(90);
         paint.setAntiAlias(true);
         Bitmap[][] heroBitmaps = ImageFactory.getHeroBitmaps(context.getResources());
         itemWidth = GameSurfaceView.MAP_ITEM_WIDTH;
@@ -41,8 +40,23 @@ public class Hero {
     }
 
     public void move(MoveEvent moveEvent) {
-        xPosition+=moveEvent.getAddX();
-        yPosition+=moveEvent.getAddY();
+        xPosition += moveEvent.getAddX();
+        yPosition += moveEvent.getAddY();
+        execEvent(xPosition, yPosition);
+    }
+
+    public void execEvent(int xPosition, int yPosition) {
+        for (Element e : Element.npcs) {
+            if (e.i == xPosition && e.j == yPosition) {
+                if (e.type == 999) {
+                    GameSurfaceView.floor++;
+                    return;
+                } else if (e.type == 1000) {
+                    GameSurfaceView.floor--;
+                    return;
+                }
+            }
+        }
     }
 
     private void setInitPosition(int floor) {
@@ -66,10 +80,10 @@ public class Hero {
     }
 
     public void addMoveListener() {
-        Disposable disposable=RxBus.getInstance().toObservableSticky(MoveEvent.class).subscribe(new Consumer<MoveEvent>() {
+        Disposable disposable = RxBus.getInstance().toObservableSticky(MoveEvent.class).subscribe(new Consumer<MoveEvent>() {
             @Override
             public void accept(MoveEvent moveEvent) {
-                Log.d("move","x="+moveEvent.getAddX()+",y="+moveEvent.getAddY());
+                Log.d("move", "x=" + moveEvent.getAddX() + ",y=" + moveEvent.getAddY());
                 move(moveEvent);
             }
         });

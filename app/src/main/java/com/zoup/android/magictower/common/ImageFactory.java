@@ -13,11 +13,10 @@ import java.io.IOException;
 public class ImageFactory {
 
     /**
-     *
      * @param resources
-     * @param fileName 文件名
-     * @param rows 原始图片的行数
-     * @param columns 原始图片的列数
+     * @param fileName  文件名
+     * @param rows      原始图片的行数
+     * @param columns   原始图片的列数
      * @return
      */
     public static Bitmap[][] getBitmaps(Resources resources, String fileName, int rows, int columns) {
@@ -63,4 +62,257 @@ public class ImageFactory {
         }
         return bitmaps;
     }
+
+    public static Bitmap[] getEnemyBitmap(Resources arg9, int arg10) {
+        Bitmap[] v3 = new Bitmap[4];
+        Bitmap v1 = null;
+        switch (arg10) {
+            case 10:
+            case 11:
+            case 12:
+            case 13: {
+                try {
+                    v1 = BitmapFactory.decodeStream(arg9.getAssets().open("enemy01.png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case 14:
+            case 15:
+            case 16:
+            case 17: {
+                try {
+                    v1 = BitmapFactory.decodeStream(arg9.getAssets().open("enemy02.png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case 18:
+            case 19:
+            case 20:
+            case 21: {
+                try {
+                    v1 = BitmapFactory.decodeStream(arg9.getAssets().open("enemy03.png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case 22:
+            case 23:
+            case 24:
+            case 25: {
+                try {
+                    v1 = BitmapFactory.decodeStream(arg9.getAssets().open("enemy04.png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case 26:
+            case 27:
+            case 28:
+            case 29: {
+                try {
+                    v1 = BitmapFactory.decodeStream(arg9.getAssets().open("enemy05.png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case 30:
+            case 31:
+            case 32:
+            case 33: {
+                try {
+                    v1 = BitmapFactory.decodeStream(arg9.getAssets().open("enemy06.png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case 34:
+            case 35:
+            case 36:
+            case 37: {
+                try {
+                    v1 = BitmapFactory.decodeStream(arg9.getAssets().open("enemy07.png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+            default:
+                break;
+        }
+
+        for (int i = 0; i < 4; i++) {
+            v3[i] = Bitmap.createBitmap(v1, v1.getHeight() * i / 4, logic(arg10) * v1.getHeight() / 4, v1.getWidth() / 4, v1.getHeight() / 4);
+        }
+
+        return v3;
+    }
+
+    public static int logic(int arg5) {
+        int v4 = 4;
+        int v3 = 3;
+        int v2 = 2;
+        int v0 = 0;
+        switch (arg5) {
+            case 11:
+            case 15:
+            case 19:
+            case 23:
+            case 27:
+            case 31:
+            case 35: {
+                v0 = 1;
+                break;
+            }
+            case 12:
+            case 16:
+            case 20:
+            case 24:
+            case 28:
+            case 32:
+            case 36: {
+                v0 = v2;
+                break;
+            }
+            case 13:
+            case 17:
+            case 21:
+            case 25:
+            case 29:
+            case 33:
+            case 37: {
+                v0 = v3;
+                break;
+            }
+            case 51: {
+                v0 = 1;
+                break;
+            }
+            case 52: {
+                v0 = v2;
+                break;
+            }
+            case 53: {
+                v0 = v3;
+                break;
+            }
+            case 101: {
+                v0 = 1;
+                break;
+            }
+            case 102: {
+                v0 = v2;
+                break;
+            }
+            case 103: {
+                v0 = v3;
+                break;
+            }
+            case 151: {
+                v0 = 1;
+                break;
+            }
+            case 152: {
+                v0 = v2;
+                break;
+            }
+            case 154: {
+                v0 = 1;
+                break;
+            }
+            case 155: {
+                v0 = v2;
+                break;
+            }
+            case 156: {
+                v0 = v3;
+                break;
+            }
+            case 157: {
+                v0 = v4;
+                break;
+            }
+            case 158: {
+                v0 = 5;
+                break;
+            }
+            case 160: {
+                v0 = 1;
+                break;
+            }
+            case 161: {
+                v0 = v2;
+                break;
+            }
+            case 162: {
+                v0 = v3;
+                break;
+            }
+            case 163: {
+                v0 = v4;
+                break;
+            }
+            case 164: {
+                v0 = 8;
+                break;
+            }
+            case 165: {
+                v0 = 9;
+                break;
+            }
+            case 166: {
+                v0 = 10;
+                break;
+            }
+            case 167: {
+                v0 = 11;
+                break;
+            }
+            case 168: {
+                v0 = 12;
+                break;
+            }
+            case 169: {
+                v0 = v4;
+                break;
+            }
+            case 170: {
+                v0 = 6;
+                break;
+            }
+            case 171: {
+                v0 = 7;
+                break;
+            }
+            default:
+                break;
+        }
+        return v0;
+    }
+
+    public static Bitmap[] getStairBitmap(Resources res, int type) {
+        Bitmap[] mapBitmap = new Bitmap[4];
+        if (type == 999) {
+            try {
+                mapBitmap[0] = BitmapFactory.decodeStream(res.getAssets().open("up.png"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (type == 1000) {
+            try {
+                mapBitmap[0] = BitmapFactory.decodeStream(res.getAssets().open("down.png"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return mapBitmap;
+    }
+
 }

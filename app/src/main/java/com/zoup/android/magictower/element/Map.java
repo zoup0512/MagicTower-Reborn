@@ -214,7 +214,7 @@ public class Map {
 
     public void draw(Context context, Canvas canvas, int floor) {
         Paint paint = new Paint();
-        paint.setAlpha(90);
+        paint.setAlpha(100);
         paint.setAntiAlias(true);
 
         Bitmap[][] mapBitmaps = ImageFactory.getMapBitmaps(context.getResources());
@@ -240,7 +240,7 @@ public class Map {
         }
     }
 
-    private static int[][] getMap(int floor) {
+    public static int[][] getMap(int floor) {
         int[][] floorMap;
         switch (floor) {
             case 1: {

@@ -11,6 +11,7 @@ import android.view.SurfaceView;
 import com.zoup.android.magictower.element.Control;
 import com.zoup.android.magictower.element.Element;
 import com.zoup.android.magictower.element.Hero;
+import com.zoup.android.magictower.element.ItemFactory;
 import com.zoup.android.magictower.element.Map;
 
 import java.util.Iterator;
@@ -26,11 +27,12 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
     private volatile boolean flag;
     private int screenWidth;
     private int screenHeight;
-    private int floor = 1;
+    public static int floor = 3;
     public static float MAP_ITEM_WIDTH = 0.0f;
     private Map map;
     private Hero hero;
     private Control control;
+    public static int status=0;
 
     public GameSurfaceView(Context context) {
         super(context);
@@ -60,6 +62,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
         map = new Map();
         hero = new Hero(floor);
         control = new Control(context.getResources());
+        ItemFactory.setElement(this.getResources(), Map.getMap(floor), floor);
         Thread thread = new Thread(this);
         flag = true;
         thread.start();
@@ -81,7 +84,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
         while (flag) {
             try {
                 draw();
-                Thread.sleep(100);
+                Thread.sleep(25);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -100,7 +103,6 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
         surfaceHolder.setFormat(PixelFormat.TRANSLUCENT);
         surfaceHolder.addCallback(this);
         setFocusable(true);
-
     }
 
     private void draw() {
@@ -109,6 +111,10 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
             map.draw(context, canvas, floor);
             hero.draw(context, canvas, floor);
             control.draw(canvas);
+            Iterator iterator = Element.npcs.iterator();
+            while (iterator.hasNext()) {
+                ((Element) iterator.next()).draw(this.canvas);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
