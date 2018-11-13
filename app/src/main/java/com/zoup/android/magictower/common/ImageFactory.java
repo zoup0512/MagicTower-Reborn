@@ -315,4 +315,93 @@ public class ImageFactory {
         return mapBitmap;
     }
 
+    public static Bitmap getStoneAndHPBitmap(Resources arg7, int arg8) {
+        Bitmap v3_1 = null;
+        try {
+            Bitmap v1 = BitmapFactory.decodeStream(arg7.getAssets().open("item1.png"));
+            v3_1 = Bitmap.createBitmap(v1, logic(arg8) % 2 * v1.getWidth() / 2, logic(arg8) / 2 * v1.getHeight() / 3, v1.getWidth() / 2, v1.getHeight() / 3);
+        } catch (IOException v3) {
+            v3.printStackTrace();
+        }
+        return v3_1;
+    }
+
+    public static Bitmap[] getStoreBitmap(Resources arg9) {
+        int v8 = 4;
+        Bitmap[] v3 = new Bitmap[v8];
+        try {
+            Bitmap v2 = BitmapFactory.decodeStream(arg9.getAssets().open("store.png"));
+            for (int v1 = 0; v1 < v8; v1++) {
+                v3[v1] = Bitmap.createBitmap(v2, v2.getWidth() * v1 / 4, 0, v2.getWidth() / 4, v2.getHeight());
+            }
+            return v3;
+        } catch (IOException v4) {
+            v4.printStackTrace();
+            return v3;
+        }
+    }
+
+    public static Bitmap getSwordAndShieldBitmap(Resources arg7, int arg8) {
+        Bitmap v3_1 = null;
+        try {
+            Bitmap v1 = BitmapFactory.decodeStream(arg7.getAssets().open("item2.png"));
+            v3_1 = Bitmap.createBitmap(v1, logic(arg8) % 4 * v1.getWidth() / 4, logic(arg8) / 4 * v1.getHeight() / 4, v1.getWidth() / 4, v1.getHeight() / 4);
+        } catch (IOException v3) {
+            v3.printStackTrace();
+        }
+        return v3_1;
+    }
+
+    public static Bitmap getTitle(Resources arg4) {
+        Bitmap v2_1 = null;
+        try {
+            v2_1 = BitmapFactory.decodeStream(arg4.getAssets().open("title.png"));
+        } catch (IOException v2) {
+            v2.printStackTrace();
+        }
+        return v2_1;
+    }
+
+    public static Bitmap getKeyFlyGoldBitmap(Resources arg7, int arg8) {
+        Bitmap v3_1 = null;
+        try {
+            Bitmap v1 = BitmapFactory.decodeStream(arg7.getAssets().open("info.png"));
+            v3_1 = Bitmap.createBitmap(v1, logic(arg8) % 4 * v1.getWidth() / 4, logic(arg8) / 4 * v1.getHeight() / 2, v1.getWidth() / 4, v1.getHeight() / 2);
+        } catch (IOException v3) {
+            v3.printStackTrace();
+        }
+
+        return v3_1;
+    }
+
+    public static Bitmap[] getNPCBitmap(Resources arg9, int arg10) {
+        int v8 = 4;
+        Bitmap[] v3 = new Bitmap[v8];
+        try {
+            Bitmap v1 = BitmapFactory.decodeStream(arg9.getAssets().open("npc.png"));
+            int v2;
+            for (v2 = 0; v2 < v8; ++v2) {
+                v3[v2] = Bitmap.createBitmap(v1, v1.getHeight() * v2 / 4, logic(arg10) * v1.getHeight() / 4, v1.getWidth() / 4, v1.getHeight() / 4);
+            }
+
+            return v3;
+        } catch (Exception v4) {
+            v4.printStackTrace();
+            return v3;
+        }
+    }
+
+    public static Bitmap[] getDoorBitmap(Resources arg9, int arg10) {
+        Bitmap[] v3 = new Bitmap[4];
+        try {
+            Bitmap v1 = BitmapFactory.decodeStream(arg9.getAssets().open("door.png"));
+            for (int i = 0; i < 4; i++) {
+                v3[i] = Bitmap.createBitmap(v1, logic(arg10) * v1.getHeight() / 4, v1.getHeight() * i / 4, v1.getWidth() / 4, v1.getHeight() / 4);
+            }
+        } catch (IOException v4) {
+            v4.printStackTrace();
+        }
+        return v3;
+    }
+
 }

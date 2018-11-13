@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.Log;
 
+import com.zoup.android.magictower.bean.UpDownStairsEvent;
 import com.zoup.android.magictower.ui.GameSurfaceView;
 import com.zoup.android.magictower.common.ImageFactory;
 import com.zoup.android.magictower.bean.MoveEvent;
@@ -49,10 +50,10 @@ public class Hero {
         for (Element e : Element.npcs) {
             if (e.i == xPosition && e.j == yPosition) {
                 if (e.type == 999) {
-                    GameSurfaceView.floor++;
+                    GameSurfaceView.status = 1;
                     return;
                 } else if (e.type == 1000) {
-                    GameSurfaceView.floor--;
+                    GameSurfaceView.status = -1;
                     return;
                 }
             }
