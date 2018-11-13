@@ -2,6 +2,8 @@ package com.zoup.android.magictower.element;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.RectF;
 
 import com.zoup.android.magictower.common.ConstUtil;
@@ -36,6 +38,9 @@ public class Enemy extends Element {
                 this.index = 0;
             }
         }
+        PaintFlagsDrawFilter pfd= new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG);
+        canvas.setDrawFilter(pfd);
+        paint.setFilterBitmap(true);
         canvas.drawBitmap(frameBitmaps[index],null,new RectF(i*itemWidth,j*itemWidth,(i+1)*itemWidth,(j+1)*itemWidth),paint);
     }
 

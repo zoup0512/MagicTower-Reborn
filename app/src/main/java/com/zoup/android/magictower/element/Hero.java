@@ -25,8 +25,9 @@ public class Hero {
     private volatile int xPosition = 0;
     private volatile int yPosition = 0;
     private float itemWidth;
+    public int floor=1;
 
-    public Hero(int floor) {
+    public Hero() {
         addMoveListener();
         setInitPosition(floor);
     }
@@ -43,6 +44,18 @@ public class Hero {
     public void move(MoveEvent moveEvent) {
         xPosition += moveEvent.getAddX();
         yPosition += moveEvent.getAddY();
+        if(xPosition<0){
+            xPosition=0;
+        }
+        if(xPosition>10){
+            xPosition=10;
+        }
+        if(yPosition<0){
+            yPosition=0;
+        }
+        if(yPosition>9){
+            yPosition=9;
+        }
         execEvent(xPosition, yPosition);
     }
 

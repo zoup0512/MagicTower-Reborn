@@ -68,7 +68,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
         screenHeight = getHeight();
         MAP_ITEM_WIDTH = screenHeight / 10;
         map = new Map();
-        hero = new Hero(floor);
+        hero = new Hero();
         control = new Control(context.getResources());
         ItemFactory.setElement(this.getResources(), Map.getMap(floor), floor);
         Thread thread = new Thread(this);
@@ -92,7 +92,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
         while (flag) {
             try {
                 draw();
-                Thread.sleep(25);
+                Thread.sleep(30);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

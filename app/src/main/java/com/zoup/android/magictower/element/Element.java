@@ -16,7 +16,7 @@ public abstract class Element {
     public int j;
     public int type;
     public int index = 0;
-    public int times=0;
+    public int times = 0;
     public Paint paint = new Paint();
     public Bitmap[] frameBitmaps = new Bitmap[4];
     public static List<Element> npcs = new ArrayList<>();

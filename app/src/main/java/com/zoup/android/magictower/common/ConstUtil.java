@@ -80,5 +80,8 @@ public class ConstUtil {
     public static final int UP = 0;
     public static final int YELLOWKEY = 150;
 
+    public static final int ROWS=10;
+    public static final int COLUMNS=11;
+
 }
 
