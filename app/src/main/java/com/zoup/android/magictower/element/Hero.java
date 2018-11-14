@@ -22,6 +22,72 @@ import io.reactivex.functions.Consumer;
  * E-Mail：2479008771@qq.com
  */
 public class Hero {
+    public static int attack;
+    public static int blueKey;
+    public static int defence;
+    public static int direction;
+    private float distance;
+    private float distanceSum;
+    private static Enemy e;
+    public static int exp;
+    public static int gold;
+    public Bitmap[][] heroFrame;
+    public static int hp;
+    private int index;
+    private float[][] infoDown;
+    private static String infoStr;
+    private float[][] infoUP;
+    public static boolean isChoiceFloor;
+    public static boolean isDialog;
+    public static boolean isEnemyInfo;
+    public static boolean isExp;
+    public static boolean isFly;
+    public static boolean isHero;
+    public static boolean isInfo;
+    private boolean isInit;
+    public static boolean isItem;
+    private boolean isMove;
+    public static boolean isSearch;
+    public static boolean isStore;
+    public static float left;
+    private static String lostMsg;
+    public static int maxFloor;
+    private String[] message;
+    private Paint p;
+    public static int redKey;
+    private int screenWidth;
+    private float speed;
+    private static Bitmap tempImage;
+    public static float top;
+    public static int yellowKey;
+
+    static {
+        Hero.left = -1f;
+        Hero.top = -1f;
+        Hero.tempImage = null;
+        Hero.maxFloor = 0;
+        Hero.direction = 1;
+        Hero.isDialog = false;
+        Hero.isItem = false;
+        Hero.isHero = false;
+        Hero.isInfo = false;
+        Hero.isChoiceFloor = false;
+        Hero.infoStr = "";
+        Hero.attack = 20;
+        Hero.defence = 15;
+        Hero.hp = 1000;
+        Hero.exp = 0;
+        Hero.gold = 0;
+        Hero.yellowKey = 1;
+        Hero.blueKey = 1;
+        Hero.redKey = 1;
+        Hero.isSearch = false;
+        Hero.isFly = false;
+        Hero.isExp = false;
+        Hero.isStore = false;
+        Hero.isEnemyInfo = false;
+    }
+
     private volatile int xPosition = 0;
     private volatile int yPosition = 0;
     private float itemWidth;

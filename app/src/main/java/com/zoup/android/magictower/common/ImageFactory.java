@@ -404,4 +404,28 @@ public class ImageFactory {
         return v3;
     }
 
+    public static Bitmap[] getInfoBitmap(Resources arg9) {
+        int v8 = 8;
+        Bitmap[] v3 = new Bitmap[v8];
+        try {
+            Bitmap v2 = BitmapFactory.decodeStream(arg9.getAssets().open("info.png"));
+            for (int v1 = 0; v1 < v8; ++v1) {
+                v3[v1] = Bitmap.createBitmap(v2, v1 % 4 * v2.getWidth() / 4, v1 / 4 * v2.getHeight() / 2, v2.getWidth() / 4, v2.getHeight() / 2);
+            }
+        } catch (IOException v4) {
+            v4.printStackTrace();
+        }
+        return v3;
+    }
+
+    public static Bitmap getBgBitmap(Resources arg4) {
+        Bitmap v2_1 = null;
+        try {
+            v2_1 = BitmapFactory.decodeStream(arg4.getAssets().open("bg.png"));
+        } catch (IOException v2) {
+            v2.printStackTrace();
+        }
+        return v2_1;
+    }
+
 }
