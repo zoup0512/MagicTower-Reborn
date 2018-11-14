@@ -12,5 +12,14 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+    <style name="game_info_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    <style name="game_info_middle_text_style" parent="game_info_text_style">
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
 
 </resources>

@@ -16,6 +16,7 @@ import com.zoup.android.magictower.common.rx.RxDisposables;
 import com.zoup.android.magictower.element.Control;
 import com.zoup.android.magictower.element.Element;
 import com.zoup.android.magictower.element.Hero;
+import com.zoup.android.magictower.element.Info;
 import com.zoup.android.magictower.element.ItemFactory;
 import com.zoup.android.magictower.element.Map;
 
@@ -33,8 +34,8 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
     private SurfaceHolder surfaceHolder;
     private Canvas canvas;
     private volatile boolean flag;
-    private int screenWidth;
-    private int screenHeight;
+    public static int screenWidth;
+    public static int screenHeight;
     public static int floor = 1;
     public static float MAP_ITEM_WIDTH = 0.0f;
     private Map map;
@@ -108,6 +109,8 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
     private void init(Context context) {
         this.context = context;
         surfaceHolder = getHolder();
+        setZOrderOnTop(true);
+//        setZOrderMediaOverlay(true);
         surfaceHolder.setFormat(PixelFormat.TRANSLUCENT);
         surfaceHolder.addCallback(this);
         setFocusable(true);
