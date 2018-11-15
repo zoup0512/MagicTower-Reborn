@@ -4,26 +4,17 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.zoup.android.magictower.bean.MoveEvent;
-import com.zoup.android.magictower.bean.UpDownStairsEvent;
-import com.zoup.android.magictower.common.rx.RxBus;
-import com.zoup.android.magictower.common.rx.RxDisposables;
 import com.zoup.android.magictower.element.Control;
 import com.zoup.android.magictower.element.Element;
 import com.zoup.android.magictower.element.Hero;
-import com.zoup.android.magictower.element.Info;
 import com.zoup.android.magictower.element.ItemFactory;
 import com.zoup.android.magictower.element.Map;
 
 import java.util.Iterator;
-
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 /**
  * Created by zoup on 2018/10/27
@@ -122,7 +113,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
             if (status == 0) {
                 map.draw(context, canvas, floor);
                 hero.draw(context, canvas, floor);
-                control.draw(canvas);
+//                control.draw(canvas);
                 Iterator iterator = Element.npcs.iterator();
                 while (iterator.hasNext()) {
                     ((Element) iterator.next()).draw(this.canvas);

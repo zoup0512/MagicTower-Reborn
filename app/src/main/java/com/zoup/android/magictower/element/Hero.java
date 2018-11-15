@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.Log;
 
-import com.zoup.android.magictower.bean.UpDownStairsEvent;
 import com.zoup.android.magictower.ui.GameSurfaceView;
 import com.zoup.android.magictower.common.ImageFactory;
 import com.zoup.android.magictower.bean.MoveEvent;
