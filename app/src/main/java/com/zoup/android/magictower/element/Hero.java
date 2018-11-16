@@ -106,8 +106,24 @@ public class Hero {
     }
 
     public void move(MoveEvent moveEvent) {
-        xPosition += moveEvent.getAddX();
-        yPosition += moveEvent.getAddY();
+        int addX = 0;
+        int addY = 0;
+        switch (moveEvent.getAction()) {
+            case MoveEvent.ACTION_UP:
+                addY = -1;
+                break;
+            case MoveEvent.ACTION_DOWN:
+                addY = 1;
+                break;
+            case MoveEvent.ACTION_LEFT:
+                addX = -1;
+                break;
+            case MoveEvent.ACTION_RIGHT:
+                addX = 1;
+                break;
+        }
+        xPosition += addX;
+        yPosition += addY;
         execEvent(xPosition, yPosition);
     }
 
@@ -149,7 +165,6 @@ public class Hero {
         Disposable disposable = RxBus.getInstance().toObservableSticky(MoveEvent.class).subscribe(new Consumer<MoveEvent>() {
             @Override
             public void accept(MoveEvent moveEvent) {
-                Log.d("move", "x=" + moveEvent.getAddX() + ",y=" + moveEvent.getAddY());
                 move(moveEvent);
             }
         });

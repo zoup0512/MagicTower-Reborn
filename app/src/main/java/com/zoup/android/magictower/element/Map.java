@@ -214,7 +214,6 @@ public class Map {
 
     public void draw(Context context, Canvas canvas, int floor) {
         Paint paint = new Paint();
-        paint.setAlpha(100);
         paint.setAntiAlias(true);
 
         Bitmap[][] mapBitmaps = ImageFactory.getMapBitmaps(context.getResources());
@@ -309,5 +308,72 @@ public class Map {
             }
         }
         return floorMap;
+    }
+
+    public static void setMap(int floor, int i, int j) {
+        switch (floor) {
+            case 1: {
+                Map.floor1[i][j] = 0;
+                break;
+            }
+            case 2: {
+                Map.floor2[i][j] = 0;
+                break;
+            }
+            case 3: {
+                Map.floor3[i][j] = 0;
+                break;
+            }
+            case 4: {
+                Map.floor4[i][j] = 0;
+                break;
+            }
+            case 5: {
+                Map.floor5[i][j] = 0;
+                break;
+            }
+            case 6: {
+                Map.floor6[i][j] = 0;
+                break;
+            }
+            case 7: {
+                Map.floor7[i][j] = 0;
+                break;
+            }
+            case 8: {
+                Map.floor8[i][j] = 0;
+                break;
+            }
+            case 9: {
+                Map.floor9[i][j] = 0;
+                break;
+            }
+            case 10: {
+                Map.floor10[i][j] = 0;
+                break;
+            }
+            case 11: {
+                Map.floor11[i][j] = 0;
+                break;
+            }
+            case 12: {
+                Map.floor12[i][j] = 0;
+                break;
+            }
+            case 13: {
+                Map.floor13[i][j] = 0;
+                break;
+            }
+            case 14: {
+                Map.floor14[i][j] = 0;
+                break;
+            }
+            case 15: {
+                Map.floor15[i][j] = 0;
+                break;
+            }
+            default:
+                break;
+        }
     }
 }

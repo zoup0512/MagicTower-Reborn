@@ -1,5 +1,6 @@
 package com.zoup.android.magictower.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,18 +11,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
 import com.zoup.android.magictower.R;
+import com.zoup.android.magictower.bean.MoveEvent;
+import com.zoup.android.magictower.common.rx.RxBus;
 
 /**
  * Created by zoup on 2018/11/14
  * E-Mail：2479008771@qq.com
  */
 public class GameInfoFragment extends Fragment {
-    private ImageView controlImage;
-    private String TAG = "move";
+    private ImageView virtualController;
 
     public static GameInfoFragment getInstance() {
         return new GameInfoFragment();
@@ -37,22 +38,13 @@ public class GameInfoFragment extends Fragment {
     }
 
     private void initViews(View parent) {
-        controlImage = parent.findViewById(R.id.control_image);
+        virtualController = parent.findViewById(R.id.virtual_controller);
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void addListeners() {
-//        controlImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                float x = controlImage.getX();
-//                float y = controlImage.getY();
-//                int width = controlImage.getMeasuredWidth();
-//                int height = controlImage.getMeasuredHeight();
-//            }
-//        });
-
-        controlImage.setOnTouchListener(new View.OnTouchListener() {
+        virtualController.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -63,32 +55,42 @@ public class GameInfoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         float xPos = event.getX();
                         float yPos = event.getY();
-                        int width = controlImage.getWidth();
-                        int height = controlImage.getHeight();
+                        int width = virtualController.getWidth();
+                        int height = virtualController.getHeight();
                         int centerX = width / 2;
                         int centerY = height / 2;
-                        if (xPos > centerX && Math.abs(xPos - centerX) > Math.abs(yPos - centerY)) {
-//                    Toast.makeText(getActivity(), "move right", Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "right");
-                        }
-                        if (xPos < centerX && Math.abs(xPos - centerX) > Math.abs(yPos - centerY)) {
-//                    Toast.makeText(getActivity(), "move left", Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "left");
-                        }
-                        if (yPos > centerY && Math.abs(yPos - centerY) > Math.abs(xPos - centerX)) {
-//                    Toast.makeText(getActivity(), "move down", Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "down");
-                        }
-                        if (yPos < centerY && Math.abs(yPos - centerY) > Math.abs(xPos - centerX)) {
-//                    Toast.makeText(getActivity(), "move up", Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "up");
-                        }
 
+                        if (Math.abs(xPos - centerX) > Math.abs(yPos - centerY)) {
+                            if (xPos > centerX) {
+                                Logger.d("right");
+                                postMoveEvent(MoveEvent.ACTION_RIGHT);
+                            } else {
+                                Logger.d("left");
+                                postMoveEvent(MoveEvent.ACTION_LEFT);
+                            }
+                        } else {
+                            if (yPos > centerY) {
+                                Logger.d("down");
+                                postMoveEvent(MoveEvent.ACTION_DOWN);
+                            } else {
+                                Logger.d("up");
+                                postMoveEvent(MoveEvent.ACTION_UP);
+                            }
+                        }
+                        break;
                 }
                 return true;
             }
         });
     }
 
+    private void postMoveEvent(int action) {
+        MoveEvent moveEvent = new MoveEvent(action);
+        RxBus.getInstance().postSticky(moveEvent);
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

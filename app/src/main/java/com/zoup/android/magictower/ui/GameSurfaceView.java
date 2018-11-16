@@ -4,11 +4,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.zoup.android.magictower.element.Control;
 import com.zoup.android.magictower.element.Element;
 import com.zoup.android.magictower.element.Hero;
 import com.zoup.android.magictower.element.ItemFactory;
@@ -31,7 +29,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
     public static float MAP_ITEM_WIDTH = 0.0f;
     private Map map;
     private Hero hero;
-    private Control control;
+    private DMessageView messageView;
     public static int status = 0;
 
     public GameSurfaceView(Context context) {
@@ -61,7 +59,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
         MAP_ITEM_WIDTH = screenHeight / 10;
         map = new Map();
         hero = new Hero(floor);
-        control = new Control(context.getResources());
+        messageView=new DMessageView();
         ItemFactory.setElement(this.getResources(), Map.getMap(floor), floor);
         Thread thread = new Thread(this);
         flag = true;
@@ -89,12 +87,6 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
                 e.printStackTrace();
             }
         }
-
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return control.onTouchEvent(event);
     }
 
     private void init(Context context) {
@@ -105,24 +97,31 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
         surfaceHolder.setFormat(PixelFormat.TRANSLUCENT);
         surfaceHolder.addCallback(this);
         setFocusable(true);
+
     }
 
     private void draw() {
         try {
             canvas = surfaceHolder.lockCanvas();
             if (status == 0) {
-                map.draw(context, canvas, floor);
-                hero.draw(context, canvas, floor);
-//                control.draw(canvas);
-                Iterator iterator = Element.npcs.iterator();
-                while (iterator.hasNext()) {
-                    ((Element) iterator.next()).draw(this.canvas);
+                if (canvas != null) {
+                    map.draw(context, canvas, floor);
+                    hero.draw(context, canvas, floor);
+                    messageView.draw(context,canvas);
+                    Iterator iterator = Element.npcs.iterator();
+                    while (iterator.hasNext()) {
+                        ((Element) iterator.next()).draw(canvas);
+                    }
+                    Element.npcs.removeAll(Element.tempNpcs);
+                    Element.tempNpcs.clear();
                 }
             } else {
                 setFloor();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            if (canvas != null) {
+                surfaceHolder.unlockCanvasAndPost(canvas);
+            }
         } finally {
             if (canvas != null) {
                 surfaceHolder.unlockCanvasAndPost(canvas);

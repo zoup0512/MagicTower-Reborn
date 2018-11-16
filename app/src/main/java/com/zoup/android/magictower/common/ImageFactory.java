@@ -428,4 +428,15 @@ public class ImageFactory {
         return v2_1;
     }
 
+    public static Bitmap getDialogBitmap(Resources arg4) {
+        Bitmap v2_1 = null;
+        try {
+            v2_1 = BitmapFactory.decodeStream(arg4.getAssets().open("dialog.png"));
+        } catch (IOException v2) {
+            v2.printStackTrace();
+        }
+
+        return v2_1;
+    }
+
 }
