@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import com.zoup.android.magictower.R;
 import com.zoup.android.magictower.common.ScreenUtils;
 import com.zoup.android.magictower.database.HeroInfo;
+import com.zoup.android.magictower.database.MapData;
+import com.zoup.android.magictower.database.MapInfo;
 import com.zoup.android.magictower.element.Hero;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         HeroInfo heroInfo=new HeroInfo();
         heroInfo.setAttack(15);
         heroInfo.save();
+        MapData.initMap();
         setContentView(R.layout.activity_main);
         GameSurfaceView gameSurfaceView = new GameSurfaceView(this);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ScreenUtils.getScreenH(this)*12/11, ScreenUtils.getScreenH(this));

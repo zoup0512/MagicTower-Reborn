@@ -33,6 +33,7 @@
     -->
     <list>
         <mapping class="com.zoup.android.magictower.database.HeroInfo" />
+        <mapping class="com.zoup.android.magictower.database.MapInfo" />
     </list>
 
     <!--
