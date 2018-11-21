@@ -247,4 +247,10 @@ public class Enemy extends Element {
                 break;
         }
     }
+
+    @Override
+    public void over() {
+        Element.tempNpcs.add(this);
+        Map.setMap(this.floor, this.i, 11 - this.j);
+    }
 }

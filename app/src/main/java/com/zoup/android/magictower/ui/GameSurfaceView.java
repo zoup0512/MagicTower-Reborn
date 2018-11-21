@@ -4,26 +4,16 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.zoup.android.magictower.bean.MoveEvent;
-import com.zoup.android.magictower.bean.UpDownStairsEvent;
-import com.zoup.android.magictower.common.rx.RxBus;
-import com.zoup.android.magictower.common.rx.RxDisposables;
-import com.zoup.android.magictower.element.Control;
+import com.zoup.android.magictower.common.ConstUtil;
 import com.zoup.android.magictower.element.Element;
 import com.zoup.android.magictower.element.Hero;
-import com.zoup.android.magictower.element.Info;
 import com.zoup.android.magictower.element.ItemFactory;
 import com.zoup.android.magictower.element.Map;
 
 import java.util.Iterator;
-
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 /**
  * Created by zoup on 2018/10/27
@@ -40,7 +30,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
     public static float MAP_ITEM_WIDTH = 0.0f;
     private Map map;
     private Hero hero;
-    private Control control;
+    private DMessageView messageView;
     public static int status = 0;
 
     public GameSurfaceView(Context context) {
@@ -68,9 +58,12 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
         screenWidth = getWidth();
         screenHeight = getHeight();
         MAP_ITEM_WIDTH = screenHeight / 10;
+        ConstUtil.MAPITEMWIDTH = MAP_ITEM_WIDTH;
         map = new Map();
-        hero = new Hero();
-        control = new Control(context.getResources());
+        hero = new Hero(floor);
+        hero.initPosition(floor);
+        hero.initFloorHero();
+        messageView = new DMessageView();
         ItemFactory.setElement(this.getResources(), Map.getMap(floor), floor);
         Thread thread = new Thread(this);
         flag = true;
@@ -93,17 +86,11 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
         while (flag) {
             try {
                 draw();
-                Thread.sleep(30);
+                Thread.sleep(25);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return control.onTouchEvent(event);
     }
 
     private void init(Context context) {
@@ -114,24 +101,31 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
         surfaceHolder.setFormat(PixelFormat.TRANSLUCENT);
         surfaceHolder.addCallback(this);
         setFocusable(true);
+
     }
 
     private void draw() {
         try {
             canvas = surfaceHolder.lockCanvas();
             if (status == 0) {
-                map.draw(context, canvas, floor);
-                hero.draw(context, canvas, floor);
-                control.draw(canvas);
-                Iterator iterator = Element.npcs.iterator();
-                while (iterator.hasNext()) {
-                    ((Element) iterator.next()).draw(this.canvas);
+                if (canvas != null) {
+                    map.draw(context, canvas, floor);
+                    hero.draw(context, canvas, floor);
+//                    messageView.draw(context,canvas);
+                    Iterator iterator = Element.npcs.iterator();
+                    while (iterator.hasNext()) {
+                        ((Element) iterator.next()).draw(canvas);
+                    }
+                    Element.npcs.removeAll(Element.tempNpcs);
+                    Element.tempNpcs.clear();
                 }
             } else {
                 setFloor();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            if (canvas != null) {
+                surfaceHolder.unlockCanvasAndPost(canvas);
+            }
         } finally {
             if (canvas != null) {
                 surfaceHolder.unlockCanvasAndPost(canvas);
@@ -142,6 +136,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
     public void setFloor() {
         floor += status;
         ItemFactory.setElement(this.getResources(), Map.getMap(floor), floor);
+        hero.setPosition(floor);
         status = 0;
     }
 }

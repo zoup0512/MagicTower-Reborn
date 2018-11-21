@@ -20,6 +20,10 @@ public abstract class Element {
     public Paint paint = new Paint();
     public Bitmap[] frameBitmaps = new Bitmap[4];
     public static List<Element> npcs = new ArrayList<>();
+    public static List<Element> tempNpcs = new ArrayList<>();
+    public boolean isDead = false;
+    public boolean isOver = false;
+
 
     public Element() {
         paint.setAntiAlias(true);
@@ -35,6 +39,10 @@ public abstract class Element {
             }
         }
         return null;
+    }
+
+    public void over(){
+
     }
 
 }

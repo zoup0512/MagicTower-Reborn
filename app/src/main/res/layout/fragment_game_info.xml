@@ -7,8 +7,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/hero_image"
@@ -25,48 +25,69 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/life_text"
-            style="@style/game_info_middle_text_style"
-            android:text="生命  1000" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/attack_text"
-            style="@style/game_info_middle_text_style"
-            android:text="生命  1000" />
+            <TextView
+                android:id="@+id/life_text"
+                style="@style/game_info_middle_text_style"
+                android:text="生命  1000" />
 
-        <TextView
-            android:id="@+id/defence_text"
-            style="@style/game_info_middle_text_style"
-            android:text="生命  1000" />
+            <TextView
+                android:id="@+id/attack_text"
+                style="@style/game_info_middle_text_style"
+                android:text="攻击  15" />
 
-        <TextView
-            android:id="@+id/gold_text"
-            style="@style/game_info_middle_text_style"
-            android:text="生命  1000" />
+            <TextView
+                android:id="@+id/defence_text"
+                style="@style/game_info_middle_text_style"
+                android:text="防御  10" />
 
-        <TextView
-            android:id="@+id/experience_text"
-            style="@style/game_info_middle_text_style"
-            android:text="生命  1000" />
+            <TextView
+                android:id="@+id/gold_text"
+                style="@style/game_info_middle_text_style"
+                android:text="金币  0" />
 
-        <TextView
-            android:id="@+id/red_key_text"
-            style="@style/game_info_middle_text_style"
-            android:text="生命  1000"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/blue_key_text"
-            style="@style/game_info_middle_text_style"
-            android:text="生命  1000"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/yellow_key_text"
-            style="@style/game_info_middle_text_style"
-            android:text="生命  1000"/>
+            <TextView
+                android:id="@+id/red_key_text"
+                style="@style/game_info_middle_text_style"
+                android:text="红钥匙  1" />
 
+            <TextView
+                android:id="@+id/blue_key_text"
+                style="@style/game_info_middle_text_style"
+                android:text="蓝钥匙  1" />
+
+            <TextView
+                android:id="@+id/yellow_key_text"
+                style="@style/game_info_middle_text_style"
+                android:text="黄钥匙  1" />
+
+            <TextView
+                android:id="@+id/experience_text"
+                style="@style/game_info_middle_text_style"
+                android:text="经验  0" />
+        </LinearLayout>
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/virtual_controller"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/control_default" />
 
 </LinearLayout>
