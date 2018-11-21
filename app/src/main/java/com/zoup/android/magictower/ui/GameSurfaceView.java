@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.zoup.android.magictower.common.ConstUtil;
 import com.zoup.android.magictower.element.Element;
 import com.zoup.android.magictower.element.Hero;
 import com.zoup.android.magictower.element.ItemFactory;
@@ -57,9 +58,12 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
         screenWidth = getWidth();
         screenHeight = getHeight();
         MAP_ITEM_WIDTH = screenHeight / 10;
+        ConstUtil.MAPITEMWIDTH = MAP_ITEM_WIDTH;
         map = new Map();
         hero = new Hero(floor);
-        messageView=new DMessageView();
+        hero.initPosition(floor);
+        hero.initFloorHero();
+        messageView = new DMessageView();
         ItemFactory.setElement(this.getResources(), Map.getMap(floor), floor);
         Thread thread = new Thread(this);
         flag = true;
@@ -107,7 +111,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
                 if (canvas != null) {
                     map.draw(context, canvas, floor);
                     hero.draw(context, canvas, floor);
-                    messageView.draw(context,canvas);
+//                    messageView.draw(context,canvas);
                     Iterator iterator = Element.npcs.iterator();
                     while (iterator.hasNext()) {
                         ((Element) iterator.next()).draw(canvas);
@@ -132,6 +136,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable, SurfaceHol
     public void setFloor() {
         floor += status;
         ItemFactory.setElement(this.getResources(), Map.getMap(floor), floor);
+        hero.setPosition(floor);
         status = 0;
     }
 }

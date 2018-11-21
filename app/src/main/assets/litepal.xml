@@ -31,7 +31,9 @@
     		<mapping class="com.test.model.Magazine" />
     	</list>
     -->
-    <list></list>
+    <list>
+        <mapping class="com.zoup.android.magictower.database.HeroInfo" />
+    </list>
 
     <!--
         Define where the .db file should be. "internal" means the .db file

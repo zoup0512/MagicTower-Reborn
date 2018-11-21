@@ -56,7 +56,6 @@ public class ConstUtil {
     public static final int MAPITEM5 = 5;
     public static final int MAPITEM6 = 6;
     public static final int MAPITEM7 = 7;
-    public static float MAPITEMWIDTH = 0f;
     public static final int NPC1 = 50;
     public static final int NPC2 = 51;
     public static final int NPC3 = 52;
@@ -79,6 +78,8 @@ public class ConstUtil {
     public static final int SWORD60 = 162;
     public static final int UP = 0;
     public static final int YELLOWKEY = 150;
+
+    public static float MAPITEMWIDTH = 0f;
 
 }
 

@@ -22,7 +22,7 @@ public class GameApplication extends Application {
         LitePal.initialize(this);
         Logger.addLogAdapter(new AndroidLogAdapter());
         ToastUtils.init(this);
-        initLeakCanary();
+//        initLeakCanary();
     }
 
     private void initLeakCanary() {
