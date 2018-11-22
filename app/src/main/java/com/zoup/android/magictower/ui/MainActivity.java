@@ -9,9 +9,11 @@ import android.widget.LinearLayout;
 
 import com.zoup.android.magictower.R;
 import com.zoup.android.magictower.common.ScreenUtils;
+import com.zoup.android.magictower.database.EnemyBean;
+import com.zoup.android.magictower.database.EnemyData;
 import com.zoup.android.magictower.database.HeroInfo;
 import com.zoup.android.magictower.database.MapData;
-import com.zoup.android.magictower.database.MapInfo;
+import com.zoup.android.magictower.database.Student;
 import com.zoup.android.magictower.element.Hero;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,16 +23,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
-        HeroInfo heroInfo=new HeroInfo();
+        HeroInfo heroInfo = new HeroInfo();
         heroInfo.setAttack(15);
         heroInfo.save();
         MapData.initMap();
+        EnemyData.init();
         setContentView(R.layout.activity_main);
         GameSurfaceView gameSurfaceView = new GameSurfaceView(this);
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ScreenUtils.getScreenH(this)*12/11, ScreenUtils.getScreenH(this));
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ScreenUtils.getScreenH(this) * 12 / 11, ScreenUtils.getScreenH(this));
         gameSurfaceView.setLayoutParams(lp);
-        LinearLayout rootView=findViewById(R.id.root_view);
-        rootView.addView(gameSurfaceView,0);
+        LinearLayout rootView = findViewById(R.id.root_view);
+        rootView.addView(gameSurfaceView, 0);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, GameInfoFragment.getInstance()).commitNow();
     }
 }

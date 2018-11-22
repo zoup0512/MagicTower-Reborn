@@ -13,8 +13,6 @@ import lombok.Setter;
 @Getter
 public class MapInfo extends LitePalSupport {
     private int floor;
-    private int row;
-    private int column;
-    private int data;
+    private int map_data;
 
 }

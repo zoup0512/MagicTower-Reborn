@@ -1,6 +1,10 @@
 package com.zoup.android.magictower.database;
 
+import org.litepal.LitePal;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by zoup on 2018/11/21
@@ -204,18 +208,13 @@ public class MapData {
     };
 
     public static void initMap() {
+        List<MapInfo> mapInfoList = new ArrayList<>();
         for (int i = 0; i < mapArray.length; i++) {
-            for (int j = 0; j < mapArray[i].length; j++) {
-                for (int k = 0; j < mapArray[i][j].length; k++) {
-                    MapInfo mapInfo = new MapInfo();
-                    mapInfo.setFloor(i + 1);
-                    mapInfo.setRow(j + 1);
-                    mapInfo.setColumn(k + 1);
-                    mapInfo.setData(mapArray[i][j][k]);
-                    mapInfo.save();
-                }
-            }
+            MapInfo mapInfo = new MapInfo();
+            mapInfo.setFloor(i + 1);
+            mapInfoList.add(mapInfo);
         }
+        LitePal.saveAll(mapInfoList);
     }
 
 }
